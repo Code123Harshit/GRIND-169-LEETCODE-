@@ -1,0 +1,33 @@
+class Solution {
+    public int firstMissingPositive(int[] nums) {
+
+         ///////////////////////////////////////////////////////////             O(N) SPACE APPROACH                    ///////////////////////////////////////////////////
+        int n = nums.length ; 
+        boolean [] present = new boolean[n+2] ; 
+        for(int ele : nums){
+            if(ele>0 && ele<= n){
+                present[ele]=true ; 
+            }
+        }
+
+        for(int i = 1 ; i<=n+1 ; i++){
+            if(!present[i]) return i ; 
+        }
+        return -1 ; 
+
+       ///////////////////////////////////////////////////////                       O(1) SPACE APPROACH        //////////////////////////////////////////////////////////////
+        int n = nums.length ;  
+        for(int i = 0 ; i<n ; i++){
+            while(nums[i]> 0 && nums[i]<=n && nums[nums[i]-1]!= nums[i]){
+                   int correctidx = nums[i] -1 ;
+                   int temp= nums[i] ; 
+                   nums[i] = nums[correctidx] ; 
+                   nums[correctidx] = temp ; 
+            }
+        }
+        for(int i = 0 ; i<n ; i++){
+            if(nums[i] != i+1) return i+1 ; 
+        }
+        return n+1 ; 
+    }
+}
